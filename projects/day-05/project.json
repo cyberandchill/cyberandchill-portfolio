@@ -1,17 +1,190 @@
 {
   "day": 5,
-  "title": "Project to be selected",
-  "status": "planned",
-  "built": "No implementation recorded yet.",
-  "problem": "Use case to be selected.",
-  "technologies": [],
-  "skills": [],
-  "objective": "To be defined for this day.",
-  "outcome": "Not implemented or verified.",
-  "steps": [],
-  "tests": [],
-  "problems": [],
-  "evidence": [],
-  "visual": "",
-  "limitations": "No completed work claimed."
+  "title": "Just-in-Time Workstation Administration",
+  "status": "verified",
+  "built": "Implemented native approval and a timed midPoint role that grants local administrator access through a dedicated AD group on one Windows workstation.",
+  "problem": "Reduce standing administrator privileges while showing the difference between directory revocation and Windows session lifetime.",
+  "technologies": [
+    "midPoint",
+    "Active Directory",
+    "Windows 11 Pro",
+    "Native approvals",
+    "Assignment validity",
+    "Scheduled reconciliation"
+  ],
+  "skills": [
+    "Identity governance",
+    "Least privilege",
+    "Local administration",
+    "Access validation"
+  ],
+  "objective": "Demonstrate denied access, temporary elevation, automatic group revocation and denial after fresh sign-in.",
+  "outcome": "Verified the full denied \u2192 approved temporary access \u2192 automatic AD revocation \u2192 fresh-sign-in denial cycle. The role had a 15-minute validity window; membership removal was first observed 47.204 seconds after expiry. AD revocation left the Windows session active. A client restart was required to clear stale group information before the final online sign-in check. Native processing resumed after an application restart.",
+  "steps": [
+    "Inspect baseline denial",
+    "Scope one dedicated workstation group",
+    "Map the native role",
+    "Configure approval and schedules",
+    "Request and approve a timed assignment",
+    "Verify actual elevation",
+    "Observe expiry and fresh-sign-in denial"
+  ],
+  "tests": [
+    {
+      "check": "Native approval gate",
+      "expected": "No AD membership before separate reviewer approval",
+      "observed": "Pending membership absent; unauthorized service403; reviewer204",
+      "result": "pass",
+      "evidence": "evidence/results.json"
+    },
+    {
+      "check": "Temporary administrator operation",
+      "expected": "Same user can elevate and read guest volume state",
+      "observed": "Native UAC consent and administrator-only query succeeded",
+      "result": "pass",
+      "evidence": "evidence/results.json"
+    },
+    {
+      "check": "Timed assignment",
+      "expected": "Exactly 900-second validity window on the role assignment",
+      "observed": "Valid from/to differ by 900 seconds; approval reduced actual active interval",
+      "result": "pass",
+      "evidence": "evidence/results.json"
+    },
+    {
+      "check": "Automatic directory revocation",
+      "expected": "Scheduled processing removes group without forced recompute",
+      "observed": "Observed absence 2026-10-26T01:07:39.919943+00:00; delay 47.204 seconds",
+      "result": "pass",
+      "evidence": "evidence/results.json"
+    },
+    {
+      "check": "Existing session distinction",
+      "expected": "Record session lifetime separately from membership",
+      "observed": "Native quser still reported Active after AD revocation; old elevated-process query not tested",
+      "result": "pass",
+      "evidence": "evidence/results.json"
+    },
+    {
+      "check": "Fresh-session denial",
+      "expected": "Same user lacks administrator capability after online sign-in",
+      "observed": "Guest restart cleared stale cached groups; administrator-only query denied and Administrators SID absent",
+      "result": "pass",
+      "evidence": "evidence/results.json"
+    },
+    {
+      "check": "Application restart recovery",
+      "expected": "Existing native tasks resume after application restart",
+      "observed": "Both scoped tasks recorded success after restart",
+      "result": "pass",
+      "evidence": "evidence/results.json"
+    },
+    {
+      "check": "Ordinary access preserved",
+      "expected": "Standard identity and ordinary memberships remain",
+      "observed": "AD and application groups preserved; user remains enabled",
+      "result": "pass",
+      "evidence": "evidence/results.json"
+    }
+  ],
+  "problems": [
+    "Asynchronous approval execution requires observing target state before asserting membership.",
+    "Initial client clock skew was corrected through domain time synchronization."
+  ],
+  "evidence": [
+    {
+      "path": "screenshots/before-denied.png",
+      "captured": "2026-10-26T00:27:34.081980+00:00",
+      "source": "Authentic native application or Windows console capture; automated interaction; original retained privately; separate labeled identity masks.",
+      "caption": "before denied",
+      "sha256": "0ea641930d3306b35390d2e6997831c108074f57ebc651defa92e13b29d65ec9",
+      "public_reviewed": true
+    },
+    {
+      "path": "screenshots/uac.png",
+      "captured": "2026-10-26T00:58:09.079506+00:00",
+      "source": "Authentic native application or Windows console capture; automated interaction; original retained privately; separate labeled identity masks.",
+      "caption": "uac",
+      "sha256": "09d6abde4ef7eadea3ac989ac01e9caf6df47a4cdd990a0b4e5bba58985ac7af",
+      "public_reviewed": true
+    },
+    {
+      "path": "screenshots/admin-allowed.png",
+      "captured": "2026-10-26T00:58:15.575820+00:00",
+      "source": "Authentic native application or Windows console capture; automated interaction; original retained privately; separate labeled identity masks.",
+      "caption": "admin allowed",
+      "sha256": "fd0c0a72a671bf59fd5885123f6faba42035b62e167b5a84de1478ff766e1f66",
+      "public_reviewed": true
+    },
+    {
+      "path": "screenshots/pending.png",
+      "captured": "2026-10-26T00:52:22.804837+00:00",
+      "source": "Authentic native application or Windows console capture; automated interaction; original retained privately; separate labeled identity masks.",
+      "caption": "pending",
+      "sha256": "3c5bca4fb7d861fdaec7852635f3778f4bfe947e590297ab8e8866fe82510917",
+      "public_reviewed": true
+    },
+    {
+      "path": "screenshots/assignment.png",
+      "captured": "2026-10-26T00:56:35.505884+00:00",
+      "source": "Authentic native application or Windows console capture; automated interaction; original retained privately; separate labeled identity masks.",
+      "caption": "assignment",
+      "sha256": "d2c041bae696b73bd16a05d75c078e1fab4521a6e777c6e0c53082c5bb73d669",
+      "public_reviewed": true
+    },
+    {
+      "path": "screenshots/role.png",
+      "captured": "2026-10-26T00:56:36.978965+00:00",
+      "source": "Authentic native application or Windows console capture; automated interaction; original retained privately; separate labeled identity masks.",
+      "caption": "role",
+      "sha256": "b52edf705d94040ce35eb12b1e1000acaea701521cbd5ed8075a9aeb7dd05b00",
+      "public_reviewed": true
+    },
+    {
+      "path": "screenshots/tasks.png",
+      "captured": "2026-10-26T00:56:47.751930+00:00",
+      "source": "Authentic native application or Windows console capture; automated interaction; original retained privately; separate labeled identity masks.",
+      "caption": "tasks",
+      "sha256": "c2de7e1465e6adf2c1f1e88f3300aaa5294ae9ab74caeed078690019c62e20c9",
+      "public_reviewed": true
+    },
+    {
+      "path": "screenshots/after-denied.png",
+      "captured": "2026-10-26T01:25:48.669718+00:00",
+      "source": "Authentic native application or Windows console capture; automated interaction; original retained privately; separate labeled identity masks.",
+      "caption": "after denied",
+      "sha256": "bbf0783ab909ccf2e55279406e940f3ea732e2fe9497f7c8ab5ccf17740aedb4",
+      "public_reviewed": true
+    },
+    {
+      "path": "diagrams/pam-flow.svg",
+      "caption": "Conceptual workstation privilege flow, not an implementation screenshot",
+      "captured": "2026-10-26T01:42:50.739340+00:00",
+      "source": "Derived from actual measured lab records; diagram is explanatory",
+      "sha256": "eb3d600eb8efc4637b32f693ba1e991ceb21ce35742f03347a43d457c96e7753",
+      "public_reviewed": true
+    },
+    {
+      "path": "evidence/results.json",
+      "caption": "Measured approval, expiry, token and fresh-sign-in results",
+      "captured": "2026-10-26T01:42:50.739340+00:00",
+      "source": "Derived from actual measured lab records; diagram is explanatory",
+      "sha256": "c6562c4abc688c25469420c1785a44a2e8925f6d2377ad24ecbb4d81e96a2402",
+      "public_reviewed": true
+    },
+    {
+      "path": "evidence/image-provenance.json",
+      "caption": "Native capture provenance and original/copy hashes",
+      "captured": "2026-10-26T01:42:50.739340+00:00",
+      "source": "Derived from actual measured lab records; diagram is explanatory",
+      "sha256": "b1a4fb5ffa7c4f92e1d93c92632d43d323ab253f421def145a4d4b3c1718dc27",
+      "public_reviewed": true
+    }
+  ],
+  "visual": "diagrams/pam-flow.svg",
+  "limitations": "Processing delay and previously issued Windows tokens prevent a precise 15-minute session cutoff. Full manual replay and outage across expiry were not tested.",
+  "overview_limitations": "The 15-minute validity window is not a hard session cutoff. Scheduled processing adds delay, and Windows can retain stale groups across sign-out; the final client test required a restart. Full manual replay and an outage spanning expiry were not tested.",
+  "manual_guide": "GUIDE.md",
+  "extended_reference": "REFERENCE.md",
+  "gallery_alt": "Just-in-time workstation administration architecture"
 }

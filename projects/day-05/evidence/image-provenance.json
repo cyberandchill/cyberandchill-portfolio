@@ -1,0 +1,66 @@
+[
+  {
+    "path": "screenshots/before-denied.png",
+    "captured": "2026-10-26T00:27:34.081980+00:00",
+    "source": "Authentic native application or Windows console capture; automated interaction; original retained privately; separate labeled identity masks.",
+    "caption": "before denied",
+    "sha256": "0ea641930d3306b35390d2e6997831c108074f57ebc651defa92e13b29d65ec9",
+    "original_sha256": "7225e81b62744c1c2a59b1fa795b5b9e5a4284221e57ed0cf6feb0844f784569"
+  },
+  {
+    "path": "screenshots/uac.png",
+    "captured": "2026-10-26T00:58:09.079506+00:00",
+    "source": "Authentic native application or Windows console capture; automated interaction; original retained privately; separate labeled identity masks.",
+    "caption": "uac",
+    "sha256": "09d6abde4ef7eadea3ac989ac01e9caf6df47a4cdd990a0b4e5bba58985ac7af",
+    "original_sha256": "0bb8877788b64b9bdab7fede361a2fc9c5f1f0d852c46b8a924597419e8bc0b3"
+  },
+  {
+    "path": "screenshots/admin-allowed.png",
+    "captured": "2026-10-26T00:58:15.575820+00:00",
+    "source": "Authentic native application or Windows console capture; automated interaction; original retained privately; separate labeled identity masks.",
+    "caption": "admin allowed",
+    "sha256": "fd0c0a72a671bf59fd5885123f6faba42035b62e167b5a84de1478ff766e1f66",
+    "original_sha256": "3f13ad7beee32d748375f86c981d1442499933cc05ac3021c78e2a656f6301e0"
+  },
+  {
+    "path": "screenshots/pending.png",
+    "captured": "2026-10-26T00:52:22.804837+00:00",
+    "source": "Authentic native application or Windows console capture; automated interaction; original retained privately; separate labeled identity masks.",
+    "caption": "pending",
+    "sha256": "3c5bca4fb7d861fdaec7852635f3778f4bfe947e590297ab8e8866fe82510917",
+    "original_sha256": "2b67853224909130a7204e1de8c09fe51761c9beeef9b02013a24e5a05043035"
+  },
+  {
+    "path": "screenshots/assignment.png",
+    "captured": "2026-10-26T00:56:35.505884+00:00",
+    "source": "Authentic native application or Windows console capture; automated interaction; original retained privately; separate labeled identity masks.",
+    "caption": "assignment",
+    "sha256": "d2c041bae696b73bd16a05d75c078e1fab4521a6e777c6e0c53082c5bb73d669",
+    "original_sha256": "cf45aba4c589367f06913ee6528833a0ae3142d492d081fd26afb3a8dfa106b4"
+  },
+  {
+    "path": "screenshots/role.png",
+    "captured": "2026-10-26T00:56:36.978965+00:00",
+    "source": "Authentic native application or Windows console capture; automated interaction; original retained privately; separate labeled identity masks.",
+    "caption": "role",
+    "sha256": "b52edf705d94040ce35eb12b1e1000acaea701521cbd5ed8075a9aeb7dd05b00",
+    "original_sha256": "6ae7fa1cde6de3befce9e15a9c1c56d70af15cf3661660427a536f673e2e6486"
+  },
+  {
+    "path": "screenshots/tasks.png",
+    "captured": "2026-10-26T00:56:47.751930+00:00",
+    "source": "Authentic native application or Windows console capture; automated interaction; original retained privately; separate labeled identity masks.",
+    "caption": "tasks",
+    "sha256": "c2de7e1465e6adf2c1f1e88f3300aaa5294ae9ab74caeed078690019c62e20c9",
+    "original_sha256": "cfd0bb6008a8da6976d5c13095867b6d7adf59124f06abb5dc34881aae211f87"
+  },
+  {
+    "path": "screenshots/after-denied.png",
+    "captured": "2026-10-26T01:25:48.669718+00:00",
+    "source": "Authentic native application or Windows console capture; automated interaction; original retained privately; separate labeled identity masks.",
+    "caption": "after denied",
+    "sha256": "bbf0783ab909ccf2e55279406e940f3ea732e2fe9497f7c8ab5ccf17740aedb4",
+    "original_sha256": "6e8e862498da107d00e2cdf55e4f5fc61dfede48d40706c10883ed8f7d49a43d"
+  }
+]

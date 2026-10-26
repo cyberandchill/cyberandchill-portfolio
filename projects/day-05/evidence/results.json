@@ -1,0 +1,72 @@
+{
+  "captured_utc": "2026-10-26T01:42:50.739340+00:00",
+  "valid_from_utc": "2026-10-26T00:51:52.715447+00:00",
+  "valid_to_utc": "2026-10-26T01:06:52.715447+00:00",
+  "assignment_window_seconds": 900,
+  "validity_scan_interval_seconds": 30,
+  "expiry_and_reconciliation_interval_seconds": 60,
+  "expiry_mechanism": "Native validity scanner disables assignment; native unassign action filters exact PAM role and disabled status, then recomputes/reconciles the same user",
+  "last_observed_member_utc": "2026-10-26T01:07:34.773160+00:00",
+  "first_observed_absent_utc": "2026-10-26T01:07:39.919943+00:00",
+  "first_observed_active_utc": "2026-10-26T00:53:35.025210+00:00",
+  "revocation_observation_delay_seconds": 47.204,
+  "sampling_interval_seconds": 5,
+  "revocation_observation_bound_seconds": [
+    42.058,
+    47.204
+  ],
+  "approval": {
+    "pending_membership_absent": true,
+    "distinct_reviewer": true,
+    "unauthorized_service_decision_http": 403,
+    "reviewer_decision_http": 204,
+    "execution": "Automated tests of distinct identities; no human review timing claimed",
+    "requester": "Authorized setup administrator; standard user self-service was not tested"
+  },
+  "windows": {
+    "baseline": "Administrator-only read query denied",
+    "active": "Same identity; UAC consent and elevated read query succeeded",
+    "expired_existing_process": "Read query not tested: console auto-locked; actual quser observation showed the Windows session remained Active after AD revocation",
+    "expired_fresh_signin": "Sign-out alone retained stale group information. After client restart and online sign-in, query denied and Administrators SID absent (native findstr exit1)",
+    "command": "fsutil dirty query C:",
+    "clock_qualification": "Initial client clock was three hours ahead and timezone Pacific; client domain time synchronization corrected before final fresh sign-in. Capture provenance and membership timeline use aligned reference clocks."
+  },
+  "restart_recovery": {
+    "application_restart_utc": "2026-10-26T00:54:25.490654+00:00",
+    "native_task_resumption_verified": true,
+    "scope": "Existing application restart during active access; no outage across expiry or host reboot tested"
+  },
+  "preservation": {
+    "ordinary_ad_groups": true,
+    "ordinary_application_groups": true,
+    "standard_user_enabled": true
+  },
+  "task_runs_after_expiry": {
+    "validity-task": {
+      "executionState": "runnable",
+      "lastRunStartTimestamp": "2026-10-26T01:07:36.348Z",
+      "lastRunFinishTimestamp": "2026-10-26T01:07:36.477Z",
+      "resultStatus": "success"
+    },
+    "expiry-reconcile-task": {
+      "executionState": "runnable",
+      "lastRunStartTimestamp": "2026-10-26T01:07:36.345Z",
+      "lastRunFinishTimestamp": "2026-10-26T01:07:36.679Z",
+      "resultStatus": "success"
+    }
+  },
+  "prior_failed_trial": {
+    "assignment_disabled_but_membership_retained": true,
+    "counted_as_success": false,
+    "correction": "Replaced recompute-only task with supported native disabled-assignment unassign and reconciliation; shared mapping restored"
+  },
+  "limitations": [
+    "Configured validity is not exact enforcement time",
+    "Approval consumes part of the fixed validity window",
+    "Membership revocation does not terminate existing Windows tokens",
+    "Windows sign-out alone retained stale groups; final test required a client restart",
+    "Old elevated-process read query was not tested because console auto-locked",
+    "Full independent manual replay not performed",
+    "Outage spanning expiry and host reboot recovery not tested"
+  ]
+}
