@@ -1,0 +1,87 @@
+{
+  "recorded_verification_utc": "2026-10-27T03:29:59.2828057Z",
+  "description": "Saved functional verification, not a current environment health check.",
+  "domain": "CyberAndChill.com",
+  "controller": "DC01",
+  "client": "CC-WIN11",
+  "protected_share": "\\\\DC01\\CCIAM",
+  "folder": "C:\\CyberChillIAM\\Protected",
+  "group": "GG_IAM_Readers",
+  "members": [
+    "iam-reader"
+  ],
+  "standard_user_tests": [
+    {
+      "User": "CYBERCHILL\\iam-reader",
+      "InteractiveLogonType2": true,
+      "LocalAdministrator": false,
+      "ReadExpected": true,
+      "ReadObserved": true,
+      "WriteAttempted": true,
+      "WriteObserved": false,
+      "DeniedException": null
+    },
+    {
+      "User": "CYBERCHILL\\iam-noaccess",
+      "InteractiveLogonType2": true,
+      "LocalAdministrator": false,
+      "ReadExpected": false,
+      "ReadObserved": false,
+      "WriteAttempted": false,
+      "WriteObserved": false,
+      "DeniedException": "UnauthorizedAccessException"
+    }
+  ],
+  "folder_sddl": "O:BAG:SYD:PAI(A;OICI;FA;;;SY)(A;OICI;FA;;;BA)(A;OICI;0x1200a9;;;S-1-5-21-485439317-1936595884-4213987691-1303)",
+  "share_permissions": [
+    {
+      "account": "NT AUTHORITY\\Authenticated Users",
+      "rights": "Read",
+      "type": "Allow"
+    }
+  ],
+  "secure_channel": true,
+  "desktop_verification": {
+    "reader": {
+      "signed_in": true,
+      "folder_listing": "Allowed",
+      "file_read": "Allowed",
+      "evidence": [
+        "screenshots/reader-session.png",
+        "screenshots/reader-folder.png"
+      ]
+    },
+    "nonmember": {
+      "signed_in": true,
+      "folder_open": "Access denied",
+      "file_read": "Access is denied.",
+      "evidence": [
+        "screenshots/nonmember-session.png",
+        "screenshots/nonmember-folder.png"
+      ]
+    }
+  },
+  "controller_restart_persistence": {
+    "recorded_utc": "2026-10-27T03:26:25.3519360Z",
+    "share": {
+      "Name": "CCIAM",
+      "Path": "C:\\CyberChillIAM\\Protected"
+    },
+    "members": [
+      "iam-reader"
+    ],
+    "folder_sddl_unchanged": true,
+    "directory_services_running": true
+  },
+  "methods": [
+    "Automated configuration; automated native Windows desktop sign-in, Command Prompt and File Explorer interaction.",
+    "Windows interactive-logon API type 2, then an impersonated real SMB file read; authorized file opened for write without modifying content."
+  ],
+  "limitations": [
+    "Full conventional GUI configuration replay was not independently performed.",
+    "No retained GUI screenshots of account creation or permission-edit dialogs; the native command capture shows the resulting group and ACL.",
+    "No client restart or group removal/re-add exercise was performed.",
+    "Early client UTC timestamps differed from host timestamps; screenshot provenance uses host capture time. No Kerberos-only claim is made.",
+    "A controller restart was needed during verification; directory connectivity was re-established and functional checks passed afterward."
+  ]
+}

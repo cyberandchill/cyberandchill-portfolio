@@ -22,7 +22,7 @@ Each architecture card opens a project with a technical summary, a reproducible 
 |:---:|:---:|
 | <a href="projects/day-01/README.md"><img src="assets/day-01-card.svg" alt="Active Directory lab architecture" width="360"></a> | <a href="projects/day-02/README.md"><img src="assets/hybrid-identity-portrait-v2.svg" alt="Hybrid identity lab architecture" width="360"></a> |
 | <a href="projects/day-03/README.md"><img src="assets/day-03-card.svg" alt="Jenkins SAML sign-in architecture" width="360"></a> | <a href="projects/day-04/README.md"><img src="assets/day-04-card.svg" alt="AI-assisted employee onboarding architecture" width="360"></a> |
-| <a href="projects/day-05/README.md"><img src="assets/day-05-card.svg" alt="Just-in-time workstation administration architecture" width="360"></a> |  |
+| <a href="projects/day-05/README.md"><img src="assets/day-05-card.svg" alt="Just-in-time workstation administration architecture" width="360"></a> | <a href="projects/day-06/README.md"><img src="assets/day-06-card.svg" alt="Authentication and group-based folder authorization architecture" width="360"></a> |
 
 ## Behind each project
 

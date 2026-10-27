@@ -1,17 +1,193 @@
 {
   "day": 6,
-  "title": "Project to be selected",
-  "status": "planned",
-  "built": "No implementation recorded yet.",
-  "problem": "Use case to be selected.",
-  "technologies": [],
-  "skills": [],
-  "objective": "To be defined for this day.",
-  "outcome": "Not implemented or verified.",
-  "steps": [],
-  "tests": [],
-  "problems": [],
-  "evidence": [],
-  "visual": "",
-  "limitations": "No completed work claimed."
+  "title": "Authentication vs Authorization with Active Directory",
+  "status": "verified",
+  "built": "Created two standard domain users and one protected SMB folder, with read access granted through an AD security group and enforced by NTFS permissions.",
+  "problem": "Successful sign-in establishes identity; group-based authorization limits which resources that identity can access.",
+  "technologies": [
+    "Active Directory",
+    "Windows Server 2022",
+    "Windows 11 Pro",
+    "SMB",
+    "NTFS permissions"
+  ],
+  "skills": [
+    "Authentication",
+    "Authorization",
+    "Security groups",
+    "Least privilege",
+    "Allow/deny validation"
+  ],
+  "objective": "Prove both standard users can sign in while only the authorized group member can open the same protected folder.",
+  "outcome": "Both standard users signed in to Windows. The group member listed the folder and read its file; the nonmember received Access Denied. The reader could not write. Group membership, permissions and share access were verified again after a controller restart.",
+  "steps": [
+    "Confirm domain readiness",
+    "Create two standard accounts",
+    "Create the reader security group",
+    "Protect and share one folder",
+    "Test the authorized account",
+    "Test the nonmember account"
+  ],
+  "tests": [
+    {
+      "check": "Authorized identity authenticates",
+      "expected": "Interactive logon succeeds",
+      "observed": "iam-reader interactive logon validated",
+      "result": "pass",
+      "evidence": "evidence/results.json"
+    },
+    {
+      "check": "Nonmember identity authenticates",
+      "expected": "Interactive logon succeeds",
+      "observed": "iam-noaccess interactive logon validated",
+      "result": "pass",
+      "evidence": "evidence/results.json"
+    },
+    {
+      "check": "Authorized user remains standard",
+      "expected": "No administrator membership",
+      "observed": "Administrator membership false",
+      "result": "pass",
+      "evidence": "evidence/results.json"
+    },
+    {
+      "check": "Nonmember remains standard",
+      "expected": "No administrator membership",
+      "observed": "Administrator membership false",
+      "result": "pass",
+      "evidence": "evidence/results.json"
+    },
+    {
+      "check": "Group membership is exact",
+      "expected": "Only iam-reader in GG_IAM_Readers",
+      "observed": "Only iam-reader recorded",
+      "result": "pass",
+      "evidence": "evidence/results.json"
+    },
+    {
+      "check": "NTFS permissions grant the group",
+      "expected": "Protected group read/execute; no direct user ACE",
+      "observed": "SYSTEM/Administrators full; reader group read/execute",
+      "result": "pass",
+      "evidence": "evidence/results.json"
+    },
+    {
+      "check": "Authorized SMB read",
+      "expected": "File read allowed",
+      "observed": "Actual SMB file read succeeded",
+      "result": "pass",
+      "evidence": "evidence/results.json"
+    },
+    {
+      "check": "Unauthorized SMB read",
+      "expected": "Access denied",
+      "observed": "UnauthorizedAccessException from actual SMB read",
+      "result": "pass",
+      "evidence": "evidence/results.json"
+    },
+    {
+      "check": "Reader cannot write",
+      "expected": "Write-open denied without modifying content",
+      "observed": "Write attempted and denied",
+      "result": "pass",
+      "evidence": "evidence/results.json"
+    },
+    {
+      "check": "Authorized desktop folder access",
+      "expected": "Signed-in reader lists the protected folder",
+      "observed": "Explorer listed welcome.txt",
+      "result": "pass",
+      "evidence": "screenshots/reader-folder.png"
+    },
+    {
+      "check": "Unauthorized desktop folder access",
+      "expected": "Signed-in nonmember denied the same folder",
+      "observed": "Explorer reports no permission",
+      "result": "pass",
+      "evidence": "screenshots/nonmember-folder.png"
+    },
+    {
+      "check": "Controller restart persistence",
+      "expected": "Share, exact membership and ACL remain",
+      "observed": "Share present; same member and SDDL; directory services running",
+      "result": "pass",
+      "evidence": "evidence/results.json"
+    }
+  ],
+  "problems": [
+    "Early client clock values differed from host capture timestamps; provenance retains the host time.",
+    "A controller restart interrupted the secure channel; domain connectivity was re-established before the final functional checks."
+  ],
+  "evidence": [
+    {
+      "path": "screenshots/reader-folder.png",
+      "caption": "Explorer lists the protected share for iam-reader.",
+      "captured": "2026-10-27T03:12:44.787509+00:00",
+      "source": "Authentic Windows 11 desktop capture; automated GUI interaction. Separate unchanged copy of a privately retained original; verified synthetic lab identifiers retained with owner authorization. No redactions needed; no interface or result content fabricated.",
+      "sha256": "ad9b0682c5af2f4909e046656615fc34c75a5b647e86817180f7f35546e1cbd9",
+      "public_reviewed": true
+    },
+    {
+      "path": "screenshots/nonmember-session.png",
+      "caption": "iam-noaccess signed in; actual file read returns Access is denied.",
+      "captured": "2026-10-27T03:15:01.194252+00:00",
+      "source": "Authentic Windows 11 desktop capture; automated GUI interaction. Separate unchanged copy of a privately retained original; verified synthetic lab identifiers retained with owner authorization. No redactions needed; no interface or result content fabricated.",
+      "sha256": "6ceae3642464d9ed3bba1cbf7482b06a9453a66de04fa48d5079966411f1bfbb",
+      "public_reviewed": true
+    },
+    {
+      "path": "screenshots/nonmember-folder.png",
+      "caption": "Explorer denies the same share to iam-noaccess.",
+      "captured": "2026-10-27T03:15:15.804631+00:00",
+      "source": "Authentic Windows 11 desktop capture; automated GUI interaction. Separate unchanged copy of a privately retained original; verified synthetic lab identifiers retained with owner authorization. No redactions needed; no interface or result content fabricated.",
+      "sha256": "73e74414fb0e5963b12f030c98cf60676e524e76a117fc444e8251c3ddb9b586",
+      "public_reviewed": true
+    },
+    {
+      "path": "screenshots/reader-session.png",
+      "caption": "iam-reader signed in against DC01; reader group present and file content read.",
+      "captured": "2026-10-27T03:11:47.086238+00:00",
+      "source": "Authentic Windows 11 desktop capture; automated GUI interaction. Separate unchanged copy of a privately retained original; verified synthetic lab identifiers retained with owner authorization. No redactions needed; no interface or result content fabricated.",
+      "sha256": "a85ce21143dfe83a6c212c041644d444d5a046d99eef5128e1d705e841090ca7",
+      "public_reviewed": true
+    },
+    {
+      "path": "screenshots/group-permissions.png",
+      "caption": "Actual AD group membership and protected NTFS ACL.",
+      "captured": "2026-10-27T03:13:18.059140+00:00",
+      "source": "Authentic Windows 11 desktop capture; automated GUI interaction. Separate unchanged copy of a privately retained original; verified synthetic lab identifiers retained with owner authorization. No redactions needed; no interface or result content fabricated.",
+      "sha256": "1fb799745fe92812d807114fe423b68ea86a13c817885d7410b4876d325659c2",
+      "public_reviewed": true
+    },
+    {
+      "path": "diagrams/iam-access.svg",
+      "caption": "Conceptual authentication and resource-authorization flow, not an implementation screenshot.",
+      "captured": "2026-10-27T03:38:54.297594+00:00",
+      "source": "Public summary derived from recorded synthetic lab verification; no new lab execution.",
+      "sha256": "caad75f56a08da5937b20f1bcc04876b311d21a5b826c5312ed2609304662af4",
+      "public_reviewed": true
+    },
+    {
+      "path": "evidence/results.json",
+      "caption": "Recorded authentication, actual SMB enforcement and restart-persistence results.",
+      "captured": "2026-10-27T03:38:54.297594+00:00",
+      "source": "Public summary derived from recorded synthetic lab verification; no new lab execution.",
+      "sha256": "d91d833708718772fcd4bb2dc91065e53334e3ed0dd30e8403c5e585150b56e9",
+      "public_reviewed": true
+    },
+    {
+      "path": "evidence/image-provenance.json",
+      "caption": "Authentic capture times, ownership review and original/copy hashes.",
+      "captured": "2026-10-27T03:38:54.297594+00:00",
+      "source": "Public summary derived from recorded synthetic lab verification; no new lab execution.",
+      "sha256": "11e90b1b3c05f50317b564b064507bcb5fd7c17e5a0d508e8d1dcf7e1f0a14d9",
+      "public_reviewed": true
+    }
+  ],
+  "visual": "diagrams/iam-access.svg",
+  "limitations": "Controlled synthetic lab. Configuration was automated; desktop tests used automated GUI interaction. Full manual configuration replay, client restart and group removal/re-add were not tested.",
+  "manual_guide": "GUIDE.md",
+  "extended_reference": "REFERENCE.md",
+  "gallery_alt": "Authentication and group-based folder authorization architecture",
+  "overview_limitations": "Recorded synthetic lab results. Desktop tests used automated GUI interaction; the complete manual configuration sequence was not independently replayed. Account-creation and permission-edit GUI screenshots were not retained."
 }

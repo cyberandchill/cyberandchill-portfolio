@@ -1,0 +1,62 @@
+[
+  {
+    "path": "screenshots/reader-folder.png",
+    "caption": "Explorer lists the protected share for iam-reader.",
+    "captured": "2026-10-27T03:12:44.787509+00:00",
+    "source": "Authentic Windows 11 desktop capture; automated GUI interaction. Separate unchanged copy of a privately retained original; verified synthetic lab identifiers retained with owner authorization. No redactions needed; no interface or result content fabricated.",
+    "sha256": "ad9b0682c5af2f4909e046656615fc34c75a5b647e86817180f7f35546e1cbd9",
+    "public_reviewed": true,
+    "original_sha256": "ad9b0682c5af2f4909e046656615fc34c75a5b647e86817180f7f35546e1cbd9",
+    "copy_sha256": "ad9b0682c5af2f4909e046656615fc34c75a5b647e86817180f7f35546e1cbd9",
+    "redactions": "None; only verified synthetic lab context visible.",
+    "review": "Reviewed text, metadata and visible foreground/background content; no credentials, private sign-in dialogs or unrelated windows/tabs/notifications."
+  },
+  {
+    "path": "screenshots/nonmember-session.png",
+    "caption": "iam-noaccess signed in; actual file read returns Access is denied.",
+    "captured": "2026-10-27T03:15:01.194252+00:00",
+    "source": "Authentic Windows 11 desktop capture; automated GUI interaction. Separate unchanged copy of a privately retained original; verified synthetic lab identifiers retained with owner authorization. No redactions needed; no interface or result content fabricated.",
+    "sha256": "6ceae3642464d9ed3bba1cbf7482b06a9453a66de04fa48d5079966411f1bfbb",
+    "public_reviewed": true,
+    "original_sha256": "6ceae3642464d9ed3bba1cbf7482b06a9453a66de04fa48d5079966411f1bfbb",
+    "copy_sha256": "6ceae3642464d9ed3bba1cbf7482b06a9453a66de04fa48d5079966411f1bfbb",
+    "redactions": "None; only verified synthetic lab context visible.",
+    "review": "Reviewed text, metadata and visible foreground/background content; no credentials, private sign-in dialogs or unrelated windows/tabs/notifications."
+  },
+  {
+    "path": "screenshots/nonmember-folder.png",
+    "caption": "Explorer denies the same share to iam-noaccess.",
+    "captured": "2026-10-27T03:15:15.804631+00:00",
+    "source": "Authentic Windows 11 desktop capture; automated GUI interaction. Separate unchanged copy of a privately retained original; verified synthetic lab identifiers retained with owner authorization. No redactions needed; no interface or result content fabricated.",
+    "sha256": "73e74414fb0e5963b12f030c98cf60676e524e76a117fc444e8251c3ddb9b586",
+    "public_reviewed": true,
+    "original_sha256": "73e74414fb0e5963b12f030c98cf60676e524e76a117fc444e8251c3ddb9b586",
+    "copy_sha256": "73e74414fb0e5963b12f030c98cf60676e524e76a117fc444e8251c3ddb9b586",
+    "redactions": "None; only verified synthetic lab context visible.",
+    "review": "Reviewed text, metadata and visible foreground/background content; no credentials, private sign-in dialogs or unrelated windows/tabs/notifications."
+  },
+  {
+    "path": "screenshots/reader-session.png",
+    "caption": "iam-reader signed in against DC01; reader group present and file content read.",
+    "captured": "2026-10-27T03:11:47.086238+00:00",
+    "source": "Authentic Windows 11 desktop capture; automated GUI interaction. Separate unchanged copy of a privately retained original; verified synthetic lab identifiers retained with owner authorization. No redactions needed; no interface or result content fabricated.",
+    "sha256": "a85ce21143dfe83a6c212c041644d444d5a046d99eef5128e1d705e841090ca7",
+    "public_reviewed": true,
+    "original_sha256": "a85ce21143dfe83a6c212c041644d444d5a046d99eef5128e1d705e841090ca7",
+    "copy_sha256": "a85ce21143dfe83a6c212c041644d444d5a046d99eef5128e1d705e841090ca7",
+    "redactions": "None; only verified synthetic lab context visible.",
+    "review": "Reviewed text, metadata and visible foreground/background content; no credentials, private sign-in dialogs or unrelated windows/tabs/notifications."
+  },
+  {
+    "path": "screenshots/group-permissions.png",
+    "caption": "Actual AD group membership and protected NTFS ACL.",
+    "captured": "2026-10-27T03:13:18.059140+00:00",
+    "source": "Authentic Windows 11 desktop capture; automated GUI interaction. Separate unchanged copy of a privately retained original; verified synthetic lab identifiers retained with owner authorization. No redactions needed; no interface or result content fabricated.",
+    "sha256": "1fb799745fe92812d807114fe423b68ea86a13c817885d7410b4876d325659c2",
+    "public_reviewed": true,
+    "original_sha256": "1fb799745fe92812d807114fe423b68ea86a13c817885d7410b4876d325659c2",
+    "copy_sha256": "1fb799745fe92812d807114fe423b68ea86a13c817885d7410b4876d325659c2",
+    "redactions": "None; only verified synthetic lab context visible.",
+    "review": "Reviewed text, metadata and visible foreground/background content; no credentials, private sign-in dialogs or unrelated windows/tabs/notifications."
+  }
+]
